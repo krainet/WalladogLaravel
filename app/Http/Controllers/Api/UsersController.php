@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Response;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Walladog\Http\Controllers\Controller;
 use Walladog\Http\Requests;
 use Walladog\User;
@@ -20,6 +22,11 @@ class UsersController extends Controller
      */
     public function index()
     {
+
+        $user_id=Authorizer::getResourceOwnerId(); // the token user_id
+        $user=User::find($user_id);// get the user data from database
+        return Response::json($user);
+
         $users = User::with('detail','location')->get();
         /*return view('home.home',['users'=>$users]);*/
         return $users;
@@ -54,6 +61,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+
         //Only get his own user-data https://laravel.com/docs/5.2/authorization
         $loggedUser=null;
 

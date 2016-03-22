@@ -15,6 +15,10 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        /*
+         * Oauth2
+         */
+        \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
     ];
 
     /**
@@ -28,7 +32,11 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Walladog\Http\Middleware\VerifyCsrfToken::class,
+
+            /*
+             * Comented for oAuth2
+             */
+            /*\Walladog\Http\Middleware\VerifyCsrfToken::class,*/
         ],
 
         'api' => [
@@ -48,5 +56,19 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Walladog\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        /*
+         * Oauth2
+         */
+        'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+        'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+        'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+        'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
+
+        /*
+         * OAuth2 replacing  (VerifyCsrfToken) in $middlewareGroups
+         */
+        'csrf' => App\Http\Middleware\VerifyCsrfToken::class,
+
     ];
 }

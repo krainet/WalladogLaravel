@@ -156,6 +156,12 @@ return [
         Walladog\Providers\EventServiceProvider::class,
         Walladog\Providers\RouteServiceProvider::class,
 
+        /*
+         * Oauth2
+         */
+        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+
     ],
 
     /*
@@ -201,6 +207,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Oauth2
+         */
+        'Authorizer' => LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
 
     ],
 

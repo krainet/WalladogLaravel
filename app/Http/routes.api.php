@@ -26,7 +26,8 @@
 /**
  * Protected Api routes
  */
-Route::group(['middleware' => ['auth:api'],'prefix'=>'api/1.0'], function () {
+/*Route::group(['middleware' => ['auth:api'],'prefix'=>'api/1.0'], function () {*/
+Route::group(['middleware' => ['oauth'],'prefix'=>'api/1.0'], function () {
 
     Route::get('users/{id}', [
         'uses'  => 'UsersController@show',
@@ -50,5 +51,11 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'uses'  => 'LoginController@create',
         'as'    => 'login_create_path'
     ]);
+
+    Route::post('oauth/access_token', function() {
+        return Response::json(Authorizer::issueAccessToken());
+    });
+
+
 
 });
