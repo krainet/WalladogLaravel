@@ -26,8 +26,18 @@
 /**
  * Protected Api routes
  */
-/*Route::group(['middleware' => ['auth:api'],'prefix'=>'api/1.0'], function () {*/
+
 Route::group(['middleware' => ['oauth'],'prefix'=>'api/1.0'], function () {
+
+    Route::put('users/{id}', [
+        'uses'  => 'UsersController@update',
+        'as'    => 'users_update_path'
+    ])->where('id','[0-9]+');
+
+    Route::delete('users/{id}', [
+        'uses'  => 'UsersController@destroy',
+        'as'    => 'users_delete_path'
+    ])->where('id','[0-9]+');
 
     Route::get('users/{id}', [
         'uses'  => 'UsersController@show',
@@ -47,15 +57,13 @@ Route::group(['middleware' => ['oauth'],'prefix'=>'api/1.0'], function () {
  */
 Route::group(['prefix'=>'api/1.0'], function () {
 
-    Route::post('login', [
-        'uses'  => 'LoginController@create',
-        'as'    => 'login_create_path'
-    ]);
-
     Route::post('oauth/access_token', function() {
         return Response::json(Authorizer::issueAccessToken());
     });
 
-
+    Route::put('users', [
+        'uses'  => 'UsersController@create',
+        'as'    => 'users_create_path'
+    ]);
 
 });

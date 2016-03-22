@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Walladog\Http\Controllers\Controller;
 use Walladog\Http\Requests;
@@ -23,13 +24,14 @@ class UsersController extends Controller
     public function index()
     {
 
-        $user_id=Authorizer::getResourceOwnerId(); // the token user_id
-        $user=User::find($user_id);// get the user data from database
-        return Response::json($user);
+        Auth::loginUsingId(Authorizer::getResourceOwnerId());
 
-        $users = User::with('detail','location')->get();
-        /*return view('home.home',['users'=>$users]);*/
-        return $users;
+        if(Gate::denies('showall',new User)) {
+            return response()->json([ 'error' => 'Usuario no autorizado' ], 401);
+        }
+
+        //$users = User::with('detail','location')->get()->paginate(15);;
+        return response()->json(User::with('detail.avatar','location')->paginate(15));
     }
 
     /**
@@ -62,20 +64,17 @@ class UsersController extends Controller
     public function show($id)
     {
 
-        //Only get his own user-data https://laravel.com/docs/5.2/authorization
-        $loggedUser=null;
+        $user_id=Authorizer::getResourceOwnerId(); // Auth user from TOKEN oAuth2
+        Auth::loginUsingId($user_id); //Log the user
 
-        if(!empty(Auth::guard('api')->user()) && $loggedUser=Auth::guard('api')->user()){
-            $user = User::with('detail','location')->findOrFail($id);
-            if (Gate::forUser($loggedUser)->allows('show', $user)) {
-                return $user;
-            }else{
-                abort(403, 'Unauthorized action.');
-            }
-
-        }else{
+        $user = User::with('detail','location')->findOrFail($id); //Get the resource
+        if(Gate::denies('show',$user)){ //Check policies for User
             return response()->json([ 'error' => 'Unauthorized not found' ], 401);
         }
+
+        //If pass the policies , return the resource
+        return $user;
+
     }
 
     /**
@@ -98,7 +97,28 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        Auth::loginUsingId(Authorizer::getResourceOwnerId());
+        $user = User::with('detail','location')->findOrFail($id); //Get the resource
+        if(Gate::denies('update',$user)) {
+            return response()->json([ 'error' => 'No tienes permisos para editar este Usuario' ], 401);
+        }
+
+        $validator = Validator::make($request->only(['firstname','lastname']), [
+            'firstname' => 'string|max:100',
+            'lastname' =>  'string|max:100',
+        ]);
+        if ($validator->fails()) {
+            return Response::make([
+                'message'   => 'Validation Failed',
+                'errors'        => $validator->errors()
+            ]);
+        }
+
+        $user->firstname = $request->get('firstname');
+        $user->save();
+
+        return response()->json($user);
     }
 
     /**
@@ -109,6 +129,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Auth::loginUsingId(Authorizer::getResourceOwnerId());
+        $user = User::with('detail','location')->findOrFail($id); //Get the resource
+        if(Gate::denies('destroy',$user)) {
+            return response()->json([ 'error' => 'No tienes permisos para editar este Usuario' ], 401);
+        }
+        
+        $user->deleted=1;
+        $user->save();
+
+        return response()->json($user);
+        
     }
 }

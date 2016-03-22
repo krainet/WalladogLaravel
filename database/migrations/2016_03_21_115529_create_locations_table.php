@@ -24,8 +24,7 @@ class CreateLocationsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
+                ->references('id')->on('users');
 
             /*
             $table->foreign('partner_id')
@@ -50,11 +49,12 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
+        /*
         Schema::table('locations', function (Blueprint $table) {
             $table->dropForeign('locations_user_id_foreign');
         });
 
-        /*
+
         Schema::table('locations', function (Blueprint $table) {
             $table->dropForeign('locations_partner_id_foreign');
         });
@@ -64,7 +64,8 @@ class CreateLocationsTable extends Migration
         });
         */
 
-
-        Schema::drop('locations');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('locations');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

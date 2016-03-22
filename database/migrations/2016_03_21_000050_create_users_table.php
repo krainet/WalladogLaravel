@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('id_type')->default(0);
             $table->integer('id_level')->default(0);
             $table->bigInteger('id_user_detail')->nullable();
-            $table->tinyInteger('id_user_state')->default(0);
+            $table->integer('id_user_state')->unsigned()->default(0);
             $table->string('facebook_token',255)->nullable();
             $table->string('google_token',255)->nullable();
             $table->string('twitter_token',255)->nullable();
@@ -38,6 +38,10 @@ class CreateUsersTable extends Migration
             $table->string('api_token', 60)->unique();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('id_user_state')
+                ->references('id')->on('user_states');
+            
         });
     }
 
@@ -48,6 +52,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_id_user_state_foreign');
+        });
         Schema::drop('users');
     }
 }

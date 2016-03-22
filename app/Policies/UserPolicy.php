@@ -11,19 +11,18 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    protected $loggedUser;
-
-
-    public function __construct()
-    {
-        $this->loggedUser = Auth::guard('api')->user();
-    }
-
     public function before(User $user, $ability)
     {
         if ($user->isSuperAdmin()) {
             return true;
         }
+
+        //TODO: implementar deleted si se cree oportuno
+        /*
+        if($user->deleted==1){
+            return false;
+        }
+        */
     }
 
 
@@ -34,8 +33,26 @@ class UserPolicy
         }
     }
 
+    public function showall(User $user, User $ouser)
+    {
+        if($user->isSuperAdmin()){
+            return true;
+        }
+        return false;
+    }
 
+    public function update(User $user, User $ouser)
+    {
+        if ($user->id == $ouser->id) {
+            return true;
+        }
+    }
 
-
+    public function destroy(User $user, User $ouser)
+    {
+        if ($user->id == $ouser->id) {
+            return true;
+        }
+    }
 
 }

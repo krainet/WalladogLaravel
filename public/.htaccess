@@ -3,6 +3,10 @@
         Options -MultiViews
     </IfModule>
 
+    <Limit GET POST PUT DELETE OPTIONS>
+      Allow from all
+    </Limit>
+
     RewriteEngine On
 
     # Redirect Trailing Slashes If Not A Folder...
