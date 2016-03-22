@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateUsersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('username')->unique()->nullable();
+            $table->string('email')->unique();
+            $table->string('password')->default(str_random(9));
+            $table->string('firstname',100)->nullable();
+            $table->string('lastname',100)->nullable();
+            $table->string('identification_number_type',10)->nullable();
+            $table->string('identification_number',25)->nullable();
+            $table->dateTime('birthdate')->nullable();
+            $table->bigInteger('id_delivery_address')->nullable();
+            $table->bigInteger('id_invoice_address')->nullable();
+            $table->bigInteger('id_location')->nullable();
+            $table->tinyInteger('id_type')->default(0);
+            $table->integer('id_level')->default(0);
+            $table->bigInteger('id_user_detail')->nullable();
+            $table->tinyInteger('id_user_state')->default(0);
+            $table->string('facebook_token',255)->nullable();
+            $table->string('google_token',255)->nullable();
+            $table->string('twitter_token',255)->nullable();
+            $table->string('oauth2_token',255)->nullable();
+            $table->boolean('deleted')->default(0);
+            $table->boolean('isSuperAdmin')->default(0);
+            $table->string('api_token', 60)->unique();
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('users');
+    }
+}
