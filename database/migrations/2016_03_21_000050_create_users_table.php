@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('identification_number_type',10)->nullable();
             $table->string('identification_number',25)->nullable();
             $table->dateTime('birthdate')->nullable();
-            $table->bigInteger('id_delivery_address')->nullable();
-            $table->bigInteger('id_invoice_address')->nullable();
             $table->bigInteger('id_location')->nullable();
             $table->tinyInteger('id_type')->default(0);
             $table->integer('id_level')->default(0);
@@ -41,6 +39,7 @@ class CreateUsersTable extends Migration
 
             $table->foreign('id_user_state')
                 ->references('id')->on('user_states');
+
             
         });
     }
@@ -52,9 +51,21 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        /*
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('users_id_user_state_foreign');
         });
-        Schema::drop('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_delivery_address_id_foreign');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_invoice_address_id_foreign');
+        });
+        Schema::dropIfExists('users');
+        */
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('users');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

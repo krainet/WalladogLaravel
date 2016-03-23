@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->string('city',255)->default('Desconocida');
             $table->integer('user_id')->unsigned();
             $table->integer('partner_id')->unsigned();
+            $table->integer('pet_id')->unsigned();
             $table->integer('site_id')->unsigned();
             $table->string('country',255)->default('ES');
             $table->double('latitude')->nullable();

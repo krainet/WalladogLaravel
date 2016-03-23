@@ -61,9 +61,14 @@ Route::group(['prefix'=>'api/1.0'], function () {
         return Response::json(Authorizer::issueAccessToken());
     });
 
-    Route::put('users', [
+    Route::post('users', [
         'uses'  => 'UsersController@create',
         'as'    => 'users_create_path'
+    ]);
+
+    Route::get('pets', [
+        'uses'  => 'PetsController@index',
+        'as'    => 'pets_index_path'
     ]);
 
 });

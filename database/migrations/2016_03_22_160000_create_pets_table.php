@@ -20,7 +20,7 @@ class CreatePetsTable extends Migration
             $table->integer('id_pet_race')->unsigned();
             $table->string('pet_cross_description',255);
             $table->integer('id_pet_type')->unsigned();
-            $table->integer('id_partner')->unsigned();
+            $table->integer('partner_id')->unsigned();
             $table->integer('id_location')->unsigned();
             $table->boolean('hidden_location')->default(false);
             $table->string('hidden_location_city',100)->default('Sin ubicación');
@@ -41,7 +41,7 @@ class CreatePetsTable extends Migration
             $table->foreign('id_pet_type')
                 ->references('id')->on('pet_types');
 
-            $table->foreign('id_partner')
+            $table->foreign('partner_id')
                 ->references('id')->on('partners');
             
 
@@ -70,13 +70,12 @@ class CreatePetsTable extends Migration
             $table->dropForeign('pets_id_pet_type_foreign');
         });
         Schema::table('pets', function (Blueprint $table) {
-            $table->dropForeign('pets_id_partner_foreign');
+            $table->dropForeign('pets_partner_id_foreign');
         });
 
         Schema::table('pets', function (Blueprint $table) {
             $table->dropForeign('pets_id_location_foreign');
-        });
-        */
+        });*/
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('pets');

@@ -4,6 +4,7 @@ namespace Walladog;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Pet extends Model
 {
     /**
@@ -23,4 +24,16 @@ class Pet extends Model
     protected $hidden = [
 
     ];
+
+    public function location(){
+        return $this->hasOne(Location::class);
+    }
+
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+
+    public function partner(){
+        return $this->hasOne(Partner::class);
+    }
 }

@@ -72,6 +72,26 @@ $factory->define(Walladog\Pet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(Walladog\Partner::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'description' => $faker->paragraph(),
+        'url' => $faker->url,
+        'tel' => $faker->phoneNumber
+    ];
+});
+
+$factory->define(Walladog\Address::class, function (Faker\Generator $faker) {
+    return [
+        'address1' => $faker->streetAddress,
+        'address2' => $faker->address,
+        'province_txt' => $faker->city,
+        'city_txt' => $faker->city,
+        'cp_txt' => $faker->postcode
+    ];
+});
+
+
 
 
 

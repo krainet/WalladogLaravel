@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PetRacesSeeder::class);
         $this->call(UserStateSeeder::class);
         $this->call(UsersSeeder::class);
+        $this->call(PartnersSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
     }
 }

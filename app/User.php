@@ -21,8 +21,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'id_delivery_address',
-        'id_invoice_address',
+        'delivery_address_id',
+        'invoice_address_id',
         'id_location',
         'id_type',
         'id_level',
@@ -44,6 +44,10 @@ class User extends Authenticatable
 
     public function location(){
         return $this->hasOne(Location::class);
+    }
+
+    public function addresses(){
+        return $this->hasMany(Address::class);
     }
 
     public function isSuperAdmin(){

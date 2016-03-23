@@ -26,11 +26,18 @@ class Location extends Model
     ];
 
     /**
+     * Relationships
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function pet(){
+        return $this->belongsTo(Pet::class);
+    }
+
+
 
     protected $geofields = array('location_point');
 

@@ -31,7 +31,7 @@ class UsersController extends Controller
         }
 
         //$users = User::with('detail','location')->get()->paginate(15);;
-        return response()->json(User::with('detail.avatar','location')->paginate(15));
+        return response()->json(User::with('detail.avatar','location','addresses')->paginate(15));
     }
 
     /**
