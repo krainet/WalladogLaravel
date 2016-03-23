@@ -52,6 +52,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+
+        //TODO: Remove
+        return parent::render($request, $e);
+
         if(!$this->isApiCall($request)) {
             $retval = parent::render($request, $e);
         } else {

@@ -2,15 +2,13 @@
 
 namespace Walladog\Http\Controllers\Api;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Mockery\CountValidator\Exception;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Walladog\Http\Controllers\Controller;
 use Walladog\Http\Requests;
-use Walladog\Pet;
+use Walladog\Partner;
 
-class PetsController extends Controller
+class PartnersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,7 @@ class PetsController extends Controller
      */
     public function index()
     {
-        return response()->json(Pet::with('location','address','user')->paginate(15));
+        return response()->json(Partner::with('location','image','address','pets')->paginate(15));
     }
 
     /**
@@ -51,7 +49,7 @@ class PetsController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Pet::with('location','images','partner')->findOrFail($id)); //Get the resource);
+        return response()->json(Partner::with('location','image','address','pets')->findOrFail($id)); //Get the resource);
     }
 
     /**
