@@ -34,23 +34,6 @@ class CreatePetsTable extends Migration
             $table->timestamps();
 
 
-            
-            $table->foreign('id_pet_race')
-                ->references('id')->on('pet_races');
-
-            $table->foreign('id_pet_type')
-                ->references('id')->on('pet_types');
-
-            $table->foreign('partner_id')
-                ->references('id')->on('partners');
-            
-
-            $table->foreign('id_location')
-                ->references('id')->on('locations');
-            
-
-
-
         });
     }
 
@@ -61,21 +44,6 @@ class CreatePetsTable extends Migration
      */
     public function down()
     {
-
-        /*
-        Schema::table('pets', function (Blueprint $table) {
-            $table->dropForeign('pets_id_pet_race_foreign');
-        });
-        Schema::table('pets', function (Blueprint $table) {
-            $table->dropForeign('pets_id_pet_type_foreign');
-        });
-        Schema::table('pets', function (Blueprint $table) {
-            $table->dropForeign('pets_partner_id_foreign');
-        });
-
-        Schema::table('pets', function (Blueprint $table) {
-            $table->dropForeign('pets_id_location_foreign');
-        });*/
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('pets');

@@ -29,18 +29,6 @@ class CreateAddressesTable extends Migration
 
             $table->boolean('deleted')->default(0);
             $table->timestamps();
-
-
-            
-
-            /*
-            $table->foreign('id_province')
-                ->references('id')->on('provinces');
-            $table->foreign('id_city')
-                ->references('id')->on('cities');
-            $table->foreign('id_country')
-                ->references('id')->on('countries');
-            */
             
         });
     }
@@ -52,17 +40,6 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        /*
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign('addresses_id_province_foreign');
-        });
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign('addresses_id_city_foreign');
-        });
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->dropForeign('addresses_id_country_foreign');
-        });
-        */
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('addresses');

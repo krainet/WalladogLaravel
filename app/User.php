@@ -50,6 +50,14 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
+    public function pets(){
+        return $this->hasMany(Pet::class);
+    }
+
+    public function partner(){
+        return $this->hasOne(Partner::class);
+    }
+
     public function isSuperAdmin(){
         return $this->isSuperAdmin == 1;
     }

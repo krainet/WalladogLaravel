@@ -26,10 +26,7 @@ class CreateImagesTable extends Migration
             $table->boolean('deleted')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_detail_id')
-                ->references('id')->on('user_details');
-            $table->foreign('id_location')
-                ->references('id')->on('locations');
+
         });
     }
 
@@ -40,15 +37,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-
-        Schema::table('images', function (Blueprint $table) {
-            $table->dropForeign('images_user_detail_id_foreign');
-        });
-        Schema::table('images', function (Blueprint $table) {
-            $table->dropForeign('images_id_location_foreign');
-        });
-        Schema::drop('images');
-
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('images');

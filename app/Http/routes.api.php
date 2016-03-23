@@ -66,9 +66,27 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'as'    => 'users_create_path'
     ]);
 
+    Route::get('pets/{id}', [
+        'uses'  => 'PetsController@show',
+        'as'    => 'pets_show_path'
+    ])->where('id','[0-9]+');
+
     Route::get('pets', [
         'uses'  => 'PetsController@index',
         'as'    => 'pets_index_path'
     ]);
+
+    Route::get('partners/{id}', [
+        'uses'  => 'PartnersController@show',
+        'as'    => 'partners_show_path'
+    ])->where('id','[0-9]+');
+
+    Route::get('partners', [
+        'uses'  => 'PartnersController@index',
+        'as'    => 'partners_index_path'
+    ]);
+
+
+
 
 });

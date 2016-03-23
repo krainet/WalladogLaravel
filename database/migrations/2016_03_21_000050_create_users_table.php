@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id_location')->nullable();
             $table->tinyInteger('id_type')->default(0);
             $table->integer('id_level')->default(0);
+            $table->integer('partner_id')->unsigned();
             $table->bigInteger('id_user_detail')->nullable();
             $table->integer('id_user_state')->unsigned()->default(0);
             $table->string('facebook_token',255)->nullable();
@@ -51,19 +52,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        /*
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_id_user_state_foreign');
-        });
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_delivery_address_id_foreign');
-        });
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_invoice_address_id_foreign');
-        });
-        Schema::dropIfExists('users');
-        */
-
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('users');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

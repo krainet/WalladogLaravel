@@ -34,6 +34,6 @@ class Pet extends Model
     }
 
     public function partner(){
-        return $this->hasOne(Partner::class);
+        return $this->belongsTo(Partner::class);
     }
 }

@@ -37,6 +37,13 @@ class Location extends Model
         return $this->belongsTo(Pet::class);
     }
 
+    public function partner(){
+        return $this->belongsTo(Partner::class);
+    }
+
+
+
+    
 
 
     protected $geofields = array('location_point');

@@ -21,6 +21,14 @@ class Image extends Model
      * @var array
      */
     protected $hidden = [
+        'id',
+        'name',
+        'id_location',
+        'user_detail_id',
+        'pet_id',
+        'partner_id',
+        'product_id',
+        'deleted'
 
     ];
 

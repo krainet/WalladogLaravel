@@ -55,6 +55,9 @@ $factory->define(Walladog\Image::class, function (Faker\Generator $faker) {
         'name' => $userName,
         'url_short' => $img_short,
         'url_big' => $img_big,
+        /*'location_id' => function(){
+            return factory(Walladog\Location::class)->create()->id;
+        }*/
     ];
 });
 

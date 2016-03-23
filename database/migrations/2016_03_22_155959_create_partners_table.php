@@ -25,14 +25,6 @@ class CreatePartnersTable extends Migration
             $table->boolean('deleted')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')->on('users');
-            
-            $table->foreign('location_id')
-                ->references('id')->on('locations');
-
-            $table->foreign('image_id')
-                ->references('id')->on('images');
 
         });
     }
@@ -45,17 +37,6 @@ class CreatePartnersTable extends Migration
     public function down()
     {
 
-        /*
-        Schema::table('partners', function (Blueprint $table) {
-            $table->dropForeign('partners_id_location_foreign');
-        });
-        Schema::table('partners', function (Blueprint $table) {
-            $table->dropForeign('partners_id_address_foreign');
-        });
-        Schema::table('partners', function (Blueprint $table) {
-            $table->dropForeign('partners_id_image_foreign');
-        });
-        */
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('partners');

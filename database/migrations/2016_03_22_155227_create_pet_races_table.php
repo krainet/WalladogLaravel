@@ -33,11 +33,7 @@ class CreatePetRacesTable extends Migration
      */
     public function down()
     {
-        /*
-        Schema::table('pet_races', function (Blueprint $table) {
-            $table->dropForeign('pet_races_id_pet_type_foreign');
-        });
-        */
+
         
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('pet_races');
