@@ -6,6 +6,8 @@ use Walladog\Image;
 use Walladog\Location;
 use Walladog\Partner;
 use Walladog\Pet;
+use Walladog\Site;
+use Walladog\SiteComment;
 use Walladog\User;
 use Walladog\UserDetail;
 
@@ -28,7 +30,9 @@ class UsersSeeder extends Seeder
         Address::truncate();
         Location::truncate();
         Pet::truncate();
-        
+        Site::truncate();
+        SiteComment::truncate();
+
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 
         /**
@@ -56,16 +60,30 @@ class UsersSeeder extends Seeder
                 );
 
                 $user->partner->pets()->saveMany(
-                    factory(Walladog\Pet::class,3)->make()
-                )->each(function($pet){
-                    $pet->images()->saveMany(
-                        factory(Walladog\Image::class,3)->make()
-                    );
-                });
+                    factory(Walladog\Pet::class,3)->make())
+                    ->each(function($pet){
+                        $pet->images()->saveMany(
+                            factory(Walladog\Image::class,3)->make()
+                        );
+                    });
 
                 $user->partner->address()->save(
                     factory(Walladog\Address::class)->make()
                 );
+
+                $user->publications()->save(
+                    factory(Walladog\Publication::class)->make()
+                );
+
+                $user->sites()->saveMany(
+                    factory(Walladog\Site::class,3)->make())
+                    ->each(function($site) {
+                        $site->comments()->saveMany(
+                            factory(Walladog\SiteComment::class, 3)->make()
+                        );
+                    });
+
+
 
             });
 
@@ -80,6 +98,7 @@ class UsersSeeder extends Seeder
 
                 $user->pets()->save(factory(Walladog\Pet::class)->make());
             });
+
 
 
 

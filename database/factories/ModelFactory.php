@@ -95,7 +95,34 @@ $factory->define(Walladog\Address::class, function (Faker\Generator $faker) {
 });
 
 
+$factory->define(Walladog\Publication::class, function (Faker\Generator $faker) {
+    return [
+        'publication_type_id' => $faker->numberBetween(1,3),
+        'publication_status_id' => $faker->numberBetween(1,3),
+        'publication_category_id' => $faker->numberBetween(1,3),
+        'title' => $faker->sentence(),
+        'short_title'=>$faker->sentence(),
+        'short_text' => $faker->paragraph(),
+        'text'=>$faker->paragraph()
+    ];
+});
 
+$factory->define(Walladog\Site::class, function (Faker\Generator $faker) {
+    return [
+        'site_type_id' => $faker->numberBetween(1,3),
+        'site_category_id' => $faker->numberBetween(1,3),
+        'pet_type_id' => $faker->numberBetween(1,3),
+        'name' => $faker->sentence(),
+        'description'=>$faker->paragraph(),
+    ];
+});
+
+$factory->define(Walladog\SiteComment::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence(),
+        'comment'=>$faker->paragraph(),
+    ];
+});
 
 
 

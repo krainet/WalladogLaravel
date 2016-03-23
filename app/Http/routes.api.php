@@ -57,6 +57,9 @@ Route::group(['middleware' => ['oauth'],'prefix'=>'api/1.0'], function () {
  */
 Route::group(['prefix'=>'api/1.0'], function () {
 
+    /**
+     * Oauth2 and User create routes
+     */
     Route::post('oauth/access_token', function() {
         return Response::json(Authorizer::issueAccessToken());
     });
@@ -66,6 +69,9 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'as'    => 'users_create_path'
     ]);
 
+    /**
+     * Pets routes
+     */
     Route::get('pets/{id}', [
         'uses'  => 'PetsController@show',
         'as'    => 'pets_show_path'
@@ -76,6 +82,9 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'as'    => 'pets_index_path'
     ]);
 
+    /**
+     * Partners routes
+     */
     Route::get('partners/{id}', [
         'uses'  => 'PartnersController@show',
         'as'    => 'partners_show_path'
@@ -86,7 +95,31 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'as'    => 'partners_index_path'
     ]);
 
+    /**
+     * Publications routes
+     */
+    Route::get('publications', [
+        'uses'  => 'PublicationsController@index',
+        'as'    => 'publications_index_path'
+    ]);
+
+    Route::get('publications/{id}', [
+        'uses'  => 'PublicationsController@show',
+        'as'    => 'publications_show_path'
+    ])->where('id','[0-9]+');
 
 
+    /**
+     * Sites Routes
+     */
+    Route::get('sites', [
+        'uses'  => 'SitesController@index',
+        'as'    => 'sites_index_path'
+    ]);
+
+    Route::get('sites/{id}', [
+        'uses'  => 'SitesController@show',
+        'as'    => 'sites_show_path'
+    ])->where('id','[0-9]+');
 
 });

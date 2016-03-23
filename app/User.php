@@ -61,6 +61,14 @@ class User extends Authenticatable
     public function isSuperAdmin(){
         return $this->isSuperAdmin == 1;
     }
+    
+    public function publications(){
+        return $this->hasMany(Publication::class);
+    }
+    
+    public function sites(){
+        return $this->hasMany(Site::class);
+    }
 
 
 

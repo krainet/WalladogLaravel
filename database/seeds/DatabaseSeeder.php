@@ -18,6 +18,14 @@ class DatabaseSeeder extends Seeder
         $this->call(UserStateSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(PartnersSeeder::class);
+        $this->call(PublicationTypesSeeder::class);
+        $this->call(PublicationCategoriesSeeder::class);
+        $this->call(PublicationStatusSeeder::class);
+        /*$this->call(PublicationsSeeder::class);*/
+        $this->call(SiteCategoriesSeeder::class);
+        $this->call(SiteTypesSeeder::class);
+
+
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
     }
 }
