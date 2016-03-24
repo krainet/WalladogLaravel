@@ -3,6 +3,7 @@
 namespace Walladog;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User;
 
 
 class Pet extends Model
@@ -35,5 +36,9 @@ class Pet extends Model
 
     public function partner(){
         return $this->belongsTo(Partner::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
