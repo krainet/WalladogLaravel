@@ -19,7 +19,7 @@ class PetsController extends Controller
      */
     public function index()
     {
-        return response()->json(Pet::with('location','address','user')->paginate(15));
+        return response()->json(Pet::with('location','user')->paginate(15));
     }
 
     /**
