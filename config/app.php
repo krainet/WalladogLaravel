@@ -162,6 +162,11 @@ return [
         LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
         LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
 
+        /**
+         * Forms
+         */
+        Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -212,6 +217,12 @@ return [
          * Oauth2
          */
         'Authorizer' => LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
+
+        /**
+         * Forms Collective
+         */
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

@@ -34,5 +34,10 @@ Route::group(['middleware' => ['web']], function () {
         'as'    => 'home_show_path'
     ]);
 
+    Route::get('upload', [
+        'uses'  => 'UploadFormController@index',
+        'as'    => 'uploadform_index_path'
+    ]);
+
 });
 

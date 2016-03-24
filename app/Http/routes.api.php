@@ -122,4 +122,16 @@ Route::group(['prefix'=>'api/1.0'], function () {
         'as'    => 'sites_show_path'
     ])->where('id','[0-9]+');
 
+
+
+
+
+    /**
+     * Upload route example
+     */
+    Route::post('upload', [
+        'uses'  => 'UploadController@store',
+        'as'    => 'upload_store_path'
+    ]);
+
 });
