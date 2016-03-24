@@ -12,6 +12,7 @@ use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Walladog\Http\Controllers\Controller;
 use Walladog\Http\Requests;
 use Walladog\User;
+use Illuminate\Support\Facades\Input;
 
 
 class UsersController extends Controller
@@ -30,8 +31,17 @@ class UsersController extends Controller
             return response()->json([ 'error' => 'Usuario no autorizado' ], 401);
         }
 
+
+        /**
+         * Filtering
+         * http://api.walladog.com/api/1.0/users?id_user_state=2
+         */
+        $filters = Input::only('id_user_state'); //Key value applicable to WHERE
+        $users = User::with('detail.avatar','location','addresses')->where($filters)->paginate(15);
+
+
         //$users = User::with('detail','location')->get()->paginate(15);;
-        return response()->json(User::with('detail.avatar','location','addresses')->paginate(15));
+        return response()->json($users);
     }
 
     /**
